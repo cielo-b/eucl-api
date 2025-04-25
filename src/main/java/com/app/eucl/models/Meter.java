@@ -1,6 +1,7 @@
 package com.app.eucl.models;
 
 import com.app.eucl.audits.InitiatorAudit;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +21,11 @@ public class Meter extends InitiatorAudit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false, unique = true)
+    private int meterNumber;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 }

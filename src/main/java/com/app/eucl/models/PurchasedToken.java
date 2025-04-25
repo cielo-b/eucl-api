@@ -23,7 +23,7 @@ public class PurchasedToken extends InitiatorAudit {
     private UUID id;
 
     @Column(name = "meter_number", length = 6)
-    private String meterNumber;
+    private int meterNumber;
 
     @Column(name = "token")
     private String token;

@@ -2,6 +2,7 @@ package com.app.eucl.models;
 
 import com.app.eucl.audits.InitiatorAudit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,5 +41,6 @@ public class User extends InitiatorAudit {
     private Role role;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Meter> meters;
 }

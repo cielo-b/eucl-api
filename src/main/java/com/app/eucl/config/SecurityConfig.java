@@ -1,5 +1,6 @@
 package com.app.eucl.config;
 
+import com.app.eucl.enums.ERole;
 import com.app.eucl.security.handlers.CustomAccessDeniedHandler;
 import com.app.eucl.security.handlers.JwtAuthenticationEntryPoint;
 import com.app.eucl.security.jwt.JwtAuthFilter;
@@ -42,6 +43,10 @@ public class SecurityConfig {
                         "/api/v1/chapters/**",
                         "/api/v1/auth/register"
                         ).permitAll()
+                // ADMIN AUTHORISED REQs
+                .requestMatchers("/api/v1/meter/update/**", "/api/v1/meter/all", "/api/v1/meter/create", "/api/v1/meter/delete/").hasAuthority(ERole.ROLE_ADMIN.name())
+                // CUSTOMER AUTHORISED REQs
+                .requestMatchers("/api/v1/meter/all/mine").hasAuthority(ERole.ROLE_CUSTOMER.name())
                 .anyRequest().authenticated());
 
         http.exceptionHandling(
