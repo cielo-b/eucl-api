@@ -1,6 +1,7 @@
 package com.app.eucl.models;
 
 import com.app.eucl.audits.InitiatorAudit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class User extends InitiatorAudit {
     private String nationalId;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @OneToOne

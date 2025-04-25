@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -79,5 +81,18 @@ public class AuthServiceImpl implements IAuthService {
         String token = jwtService.generateToken(user);
 
         return new ApiResponse<>(token, "User registered successfully");
+    }
+
+    @Override
+    public User getPrincipal() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new UsernameNotFoundException(String.format("User with email: %s not found.", email)));
+    }
+
+    @Override
+    public ApiResponse getLoggedInUser() {
+        return new ApiResponse(getPrincipal(), null);
     }
 }
