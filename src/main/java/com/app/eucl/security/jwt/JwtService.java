@@ -10,6 +10,8 @@ import io.jsonwebtoken.security.Keys;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,8 +33,10 @@ public class JwtService {
         List<String> authorities = List.of(user.getRole().getRole().name());
         claims.put("authorities", authorities);
 
-        Instant expirationInstant = Instant.now().plus(1, ChronoUnit.MONTHS);
-        Date expirationDate = Date.from(expirationInstant);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expirationTime = now.plusMonths(1);  // Add one month to current date-time
+        Date expirationDate = Date.from(expirationTime.atZone(ZoneId.systemDefault()).toInstant());  // Convert to Date
+
         return Jwts.builder()
                 .claims()
                 .add(claims)
