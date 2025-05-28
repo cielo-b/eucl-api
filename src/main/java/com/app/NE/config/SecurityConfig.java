@@ -41,7 +41,9 @@ public class SecurityConfig {
                         "/swagger-resources/**",
                         "/api/v1/auth/login",
                         "/api/v1/chapters/**",
-                        "/api/v1/auth/register"
+                        "/api/v1/auth/register",
+                        "/actuator/**",
+                        "/api-docs/**"
                         ).permitAll()
                 // ADMIN AUTHORISED REQs
                 .requestMatchers("/api/v1/meter/update/**", "/api/v1/meter/all", "/api/v1/meter/create", "/api/v1/meter/delete/").hasAuthority(ERole.ROLE_ADMIN.name())
