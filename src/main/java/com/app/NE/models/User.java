@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "system_user")
+@Table(name = "systemuser")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
